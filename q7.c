@@ -12,11 +12,12 @@ int main(int argc, char *argv[]) {
     } else if (rc == 0) {
         // Close standard output
         close(STDOUT_FILENO);
+	printf("child: Hi!");
         
         // Calling printf() will fail silently because file descriptor 1 (stdout) is closed.
         printf("Where will be printed out to?.\n");
     } else {
-        wait(NULL);
+        printf("Parent: Hi\n");
     }
     
     return 0;
