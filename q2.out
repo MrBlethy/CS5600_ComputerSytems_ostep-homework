@@ -1,2 +1,2 @@
-Parent here says What's UP!
-Child says HELLO World!
+Parent writes to file : Hello World! (pid(298347)
+Child writes to file : what's up World! (pid: 298348)

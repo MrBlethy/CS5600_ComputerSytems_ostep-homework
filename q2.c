@@ -19,11 +19,13 @@ int main(int argc, char *argv[]){
        exit(1);
     } else if (rc == 0){
 	    //child process write to the file descriptor
-    char *childmsg = "Child says HELLO World!\n";
-    write(fd, childmsg, strlen(childmsg));
+    char cmsg[100];
+    sprintf(cmsg,"Child writes to file : what's up World! (pid: %d)\n", (int) getpid());
+    write(fd, cmsg, strlen(cmsg));
     } else {
-	    //child process write to the file descriptor
-    char *pmsg = "Parent here says What's UP!\n";
+	    //Parent process write to the file descriptor
+    char pmsg[100];
+    sprintf(pmsg, "Parent writes to file : Hello World! (pid(%d)\n", (int) getpid());
     write(fd, pmsg, strlen(pmsg));
     }
 
