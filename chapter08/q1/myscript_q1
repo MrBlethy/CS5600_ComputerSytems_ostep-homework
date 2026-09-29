@@ -1,0 +1,18 @@
+#!/bin/bash
+# Name: q1_script.sh
+# Description: Automates MLFQ runs for Chapter 8 Question 1 (2 jobs, 2 queues, no I/O)
+
+echo "========================================="
+echo "Running Chapter 8: Question 1 MLFQ Traces"
+echo "========================================="
+
+
+SCRIPT_DIR="/home/sysadmin/Documents/CS5600_ComputerSystems/ostep-homework/cpu-sched-mlfq/mlfq.py"
+
+for seed in 0 1 2
+do
+    echo "=== Run with seed $seed ==="
+    python3 "$SCRIPT_DIR" -s "$seed" -j 2 -n 2 -m 20 -M 0 -c
+done
+
+echo "All Q1 simulations completed successfully!"
