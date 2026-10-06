@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]){
     if(argc <2){
@@ -14,8 +15,10 @@ int main(int argc, char *argv[]){
     	printf("malloc failed to allocated memory");
 	return 1;  //allocation faillure check 
     }
-    printf("Running with %d MB of memory.\nNote that I will run forever.\nCTRL C to force quit", MB);
-
+    printf("Running with %zu MB of memory\n", MB);
+    printf("My process id (PID) is: %d\n", (int)getpid());
+    printf("Note that I will run forever.\n");
+    
     while(1){
     	for(size_t i = 0; i < numbers_of_entries; i++){   //loop forever
 	    array[i] = 1;
