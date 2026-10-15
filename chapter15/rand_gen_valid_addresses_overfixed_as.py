@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # X asis : Bound Register Values
-limits = [0, 100, 250, 500, 750,100]
+limits = [0, 100, 250, 500, 750, 1000]
 # Y Axis : fractions organized per seeds 
 seed1 = [0.1, 0.1, 0.1, 0.2, 0.3, 1.0]
 seed2 = [0.1, 0.2, 0.2, 0.2, 0.3, 1.0]
