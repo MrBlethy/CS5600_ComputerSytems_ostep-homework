@@ -1,0 +1,61 @@
+===== EXPERIMENT 1 =====
+Physical memory smaller than address space
+ARG seed 0
+ARG address space size 4m
+ARG phys mem size 1m
+ARG page size 4k
+ARG verbose True
+ARG addresses -1
+
+Error: physical memory size must be GREATER than address space size (for this simulation)
+
+===== EXPERIMENT 2 =====
+Page size larger than address space
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 256m
+ARG page size 2k
+ARG verbose True
+ARG addresses -1
+
+Error in argument: address space must be a multiple of the pagesize
+
+===== EXPERIMENT 3 =====
+Physical memory equal to address space
+ARG seed 0
+ARG address space size 256m
+ARG phys mem size 256m
+ARG page size 1k
+ARG verbose True
+ARG addresses -1
+
+Error: physical memory size must be GREATER than address space size (for this simulation)
+
+===== EXPERIMENT 4 =====
+Page size equal to address space
+ARG seed 0
+ARG address space size 1k
+ARG phys mem size 256m
+ARG page size 1k
+ARG verbose True
+ARG addresses -1
+
+
+The format of the page table is simple:
+The high-order (left-most) bit is the VALID bit.
+  If the bit is 1, the rest of the entry is the PFN.
+  If the bit is 0, the page is not valid.
+Use verbose mode (-v) if you want to print the VPN # by
+each entry of the page table.
+
+Page Table (from entry 0 down to the max size)
+  [       0]  0x80030825
+
+Virtual Address Trace
+  VA 0x000001ae (decimal:      430) --> 0c2095ae (decimal 203462062) [VPN 0]
+  VA 0x00000109 (decimal:      265) --> 0c209509 (decimal 203461897) [VPN 0]
+  VA 0x0000020b (decimal:      523) --> 0c20960b (decimal 203462155) [VPN 0]
+  VA 0x0000019e (decimal:      414) --> 0c20959e (decimal 203462046) [VPN 0]
+  VA 0x00000322 (decimal:      802) --> 0c209722 (decimal 203462434) [VPN 0]
+
+
