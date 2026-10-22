@@ -1,0 +1,40 @@
+========Running Experiment ===================
+pages: 1
+trials: 1000000
+ The average time per access: 3.207 ns
+pages: 2
+trials: 1000000
+ The average time per access: 2.186 ns
+pages: 4
+trials: 1000000
+ The average time per access: 1.657 ns
+pages: 8
+trials: 1000000
+ The average time per access: 1.848 ns
+pages: 16
+trials: 1000000
+ The average time per access: 2.023 ns
+pages: 32
+trials: 1000000
+ The average time per access: 1.965 ns
+pages: 64
+trials: 1000000
+ The average time per access: 7.310 ns
+pages: 128
+trials: 1000000
+ The average time per access: 2.515 ns
+pages: 256
+trials: 1000000
+ The average time per access: 2.382 ns
+pages: 512
+trials: 1000000
+ The average time per access: 2.402 ns
+pages: 1024
+trials: 1000000
+ The average time per access: 2.394 ns
+pages: 2049
+trials: 1000000
+ The average time per access: 2.562 ns
+pages: 4096
+trials: 1000000
+ The average time per access: 6.890 ns
