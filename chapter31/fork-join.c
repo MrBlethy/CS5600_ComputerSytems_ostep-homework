@@ -4,7 +4,7 @@
 #include "common_threads.h"
 
 sem_t s; 
-
+/* parent initialize thread to 0 and call sem_wait which block parents. The child created immediately run prints and sem_post which wakes up block parent which take the availble permit and print. */
 void *child(void *arg) {
     printf("child\n");
     sem_post(&s);
