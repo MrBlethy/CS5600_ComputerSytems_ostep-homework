@@ -8,8 +8,8 @@
 //
 
 typedef struct __rwlock_t {
-    sem_t lock;  // lock protecting the readers count    
-    sem_t writelock;
+    sem_t lock;       // reader lock is open by default     
+    sem_t writelock;    // lock protecting the writers also availble to the first readers 
     int readers;
 } rwlock_t;
 
@@ -19,7 +19,7 @@ void rwlock_init(rwlock_t *rw) {
     sem_init(&rw->lock, 0, 1);
     sem_init(&rw->writelock, 0, 1);
 }
-
+// reader acquire permit to update a counter. the first reader get exclusive acess to writelock  
 void rwlock_acquire_readlock(rwlock_t *rw) {
     sem_wait(&rw->lock);
     rw->readers++;
@@ -28,7 +28,7 @@ void rwlock_acquire_readlock(rwlock_t *rw) {
     }
     sem_post(&rw->lock);
 }
-
+// request acess to read lock decrement counter and last reader release the write lock . 
 void rwlock_release_readlock(rwlock_t *rw) {
     sem_wait(&rw->lock);
     rw->readers--;
@@ -64,6 +64,7 @@ void *reader(void *arg) {
     sleep(1);
 	printf("read %d\n", value);
 	rwlock_release_readlock(&lock);
+    printf("reader released lock\n");
     }
     return NULL;
 }
@@ -77,6 +78,7 @@ void *writer(void *arg) {
 	value++;
 	printf("write %d\n", value);
 	rwlock_release_writelock(&lock);
+    printf("writer released lock\n");
     }
     return NULL;
 }
