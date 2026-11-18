@@ -5,31 +5,32 @@
 #include "common_threads.h"
 
 typedef struct __ns_mutex_t {
-    sem_t lock;          // Protects the waiting counter
-    sem_t lobby;         // Gate for joining the group
+    sem_t lock;          // Protects the waiting counter. passion this stage allows thread to request acess to the lobby 
+    sem_t lobby;         // Gate for joining the group of waiting thread 
     sem_t area0;         // Gate to the critical section
-    int waiters_count;   // Threads waiting to join the group
-    int now_serving;     // Group members still waiting to enter
+    int waiters_count;   // Threads waiting to join the group waiting to access the lobby 
+    int now_serving;     // Group members still waiting to enter critical area
 } ns_mutex_t;
 
 void ns_mutex_init(ns_mutex_t *m) {
     m->waiters_count = 0;
     m->now_serving = 0;
 
-    sem_init(&m->lock, 0, 1);
-    sem_init(&m->lobby, 0, 1);
-    sem_init(&m->area0, 0, 0);
+    sem_init(&m->lock, 0, 1); // set open default
+    sem_init(&m->lobby, 0, 1);// set open by default
+    sem_init(&m->area0, 0, 0); // intentionally closed by default requires permission 
 }
 
 void ns_mutex_acquire(ns_mutex_t *m) {
-    // Register my arrival.
+    // Register my arrival with front desk
     sem_wait(&m->lock);
     m->waiters_count++;
     sem_post(&m->lock);
 
-    // Pass the lobby gate and join the group.
+    // enter the lobby and join the group waiting to be granted acess to the area 0 
     sem_wait(&m->lobby);
     m->now_serving++;
+    printf("thread waiting to access area 0\n");
 
     // Remove myself from those still waiting to join.
     sem_wait(&m->lock);
@@ -71,15 +72,15 @@ void *worker(void *arg) {
     int i;
 
     for (i = 0; i < loops; i++) {
-        printf("Thread %d requesting access\n",id );
+        printf("Thread %d requesting access to Lobby\n",id );
         ns_mutex_acquire(&mutex);
         
         // Critical section.
         printf("Access Granted\n");
-        printf("Printing inside critical section\n");
+        printf("thread %d inside Area 0\n", id);
         value++;
         printf("value %d\n", value);
-        printf("Leaving critical section\n");
+        printf("thread %d leaving Area 0\n", id);
 
         ns_mutex_release(&mutex);
     }
